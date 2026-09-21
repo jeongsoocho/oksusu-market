@@ -137,7 +137,7 @@ src/
 ## 개발하면서 알아 둘 것
 
 - 이 Supabase 프로젝트는 **이메일 확인(Confirm email)이 꺼져 있습니다.** 그래서 가입하면 메일 확인 없이 바로 로그인됩니다. 켜고 싶다면 대시보드 → Authentication → Sign In / Providers → Email → *Confirm email* 을 켜세요. 켜면 가입 후 "확인 메일을 보냈어요" 안내가 뜨고, 메일 링크가 `/auth/callback` 으로 돌아옵니다.
-- 동작 확인용 계정 두 개(`test-corn-01@example.com`, `test-corn-02@example.com`)가 DB에 들어 있습니다. 필요 없으면 대시보드 → Authentication → Users 에서 지우세요. (비밀번호는 공개 저장소에 적지 않습니다)
+- 동작 확인용으로 만들었던 계정들은 모두 지웠습니다. 앞으로도 테스트 계정을 만들면 **확인이 끝난 뒤 지우고**, 비밀번호는 공개 저장소에 적지 않습니다.
 - Supabase 보안 점검(advisor)에서 **Leaked Password Protection** 이 꺼져 있다고 알려 줍니다. 대시보드 → Authentication → Password 에서 켜면 유출된 비밀번호를 막아 줍니다. (코드 수정 불필요)
 - 트리거 전용 함수(`handle_new_user`, `touch_updated_at`)는 REST API 로 직접 호출되지 않도록 `EXECUTE` 권한을 회수해 두었습니다.
 - `npm run dev` 를 켜 둔 채로 `npm run build` 를 돌리면 둘 다 `.next` 폴더를 써서 dev 서버가 `Cannot find module './61.js'` 같은 에러를 냅니다. 그럴 땐 dev 서버를 끄고 `.next` 를 지운 뒤 다시 켜면 됩니다.
