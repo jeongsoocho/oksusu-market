@@ -22,10 +22,19 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-10 border-b-2 border-corn-200 bg-corn-50/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-4xl items-center justify-between gap-2 px-4">
-        <Link href="/" className="flex shrink-0 items-center gap-2">
-          <CornMascot size={34} />
-          <span className="font-display whitespace-nowrap text-xl text-cob-900">옥수수마켓</span>
-        </Link>
+        <div className="flex min-w-0 items-center gap-1">
+          <Link href="/" className="flex shrink-0 items-center gap-2">
+            <CornMascot size={34} />
+            <span className="font-display whitespace-nowrap text-xl text-cob-900">옥수수마켓</span>
+          </Link>
+          <Link
+            href="/products"
+            className="ml-1 rounded-full px-2.5 py-1.5 text-sm font-bold whitespace-nowrap text-cob-700 transition hover:bg-corn-100"
+          >
+            <span className="sm:hidden">🛍️</span>
+            <span className="hidden sm:inline">거래 글</span>
+          </Link>
+        </div>
 
         {user ? (
           <div className="flex shrink-0 items-center gap-1.5">

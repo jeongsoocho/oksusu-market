@@ -2,9 +2,13 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 /** 로그인해야만 볼 수 있는 경로 */
-const PROTECTED = ['/mypage']
+const PROTECTED = [
+  /^\/mypage/,
+  /^\/products\/new/,
+  /^\/products\/[^/]+\/edit/,
+]
 /** 이미 로그인했다면 들어갈 필요가 없는 경로 */
-const GUEST_ONLY = ['/login', '/signup']
+const GUEST_ONLY = [/^\/login/, /^\/signup/]
 
 /**
  * 만료가 다가온 액세스 토큰을 갱신하고, 새 쿠키를 요청과 응답 양쪽에 심어줍니다.
@@ -41,14 +45,14 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname } = request.nextUrl
 
-  if (!user && PROTECTED.some((path) => pathname.startsWith(path))) {
+  if (!user && PROTECTED.some((pattern) => pattern.test(pathname))) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     url.searchParams.set('next', pathname)
     return NextResponse.redirect(url)
   }
 
-  if (user && GUEST_ONLY.some((path) => pathname.startsWith(path))) {
+  if (user && GUEST_ONLY.some((pattern) => pattern.test(pathname))) {
     const url = request.nextUrl.clone()
     url.pathname = '/'
     url.search = ''
