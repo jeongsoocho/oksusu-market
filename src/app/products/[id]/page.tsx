@@ -4,15 +4,15 @@ import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import {
   PRODUCT_SELECT,
-  STATUSES,
   categoryOf,
   formatPrice,
   statusOf,
   timeAgo,
   type Product,
 } from '@/lib/products'
-import { deleteProductAction, updateStatusAction } from '@/app/products/actions'
+import { deleteProductAction } from '@/app/products/actions'
 import { ConfirmSubmit } from '@/components/confirm-submit'
+import { StatusSwitcher } from '@/components/status-switcher'
 
 async function getProduct(idParam: string) {
   const id = Number(idParam)
@@ -118,24 +118,8 @@ export default async function ProductDetailPage({
         <div className="rounded-3xl border-2 border-husk-300 bg-husk-100 p-5">
           <p className="text-sm font-bold text-husk-700">내가 올린 글이에요</p>
 
-          <div className="mt-3 flex flex-wrap gap-2">
-            {STATUSES.map((s) => (
-              <form key={s.value} action={updateStatusAction}>
-                <input type="hidden" name="id" value={product.id} />
-                <input type="hidden" name="status" value={s.value} />
-                <button
-                  type="submit"
-                  disabled={product.status === s.value}
-                  className={`rounded-full border-2 px-3.5 py-1.5 text-sm font-bold transition ${
-                    product.status === s.value
-                      ? 'cursor-default border-husk-600 bg-husk-500 text-white'
-                      : 'border-husk-300 bg-white/80 text-husk-700 hover:bg-white'
-                  }`}
-                >
-                  {s.label}
-                </button>
-              </form>
-            ))}
+          <div className="mt-3">
+            <StatusSwitcher productId={product.id} status={product.status} />
           </div>
 
           <div className="mt-4 flex gap-2">

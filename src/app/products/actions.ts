@@ -97,28 +97,36 @@ export async function updateProductAction(
   redirect(`/products/${id}`)
 }
 
-/** 판매중 / 예약중 / 판매완료 바꾸기 */
-export async function updateStatusAction(formData: FormData) {
-  const id = Number(formData.get('id'))
-  const status = String(formData.get('status') ?? '')
-
-  if (!Number.isInteger(id) || !STATUS_VALUES.includes(status)) return
+/**
+ * 판매중 / 예약중 / 판매완료 바꾸기.
+ *
+ * 폼(FormData)이 아니라 값을 바로 받습니다. 그래야 버튼에서 곧장 부를 수 있고,
+ * 화면은 먼저 바뀌고 저장이 뒤따라가는 방식(낙관적 갱신)을 쓸 수 있습니다.
+ */
+export async function setProductStatus(id: number, status: string) {
+  if (!Number.isInteger(id) || !STATUS_VALUES.includes(status)) {
+    return { error: '알 수 없는 상태예요.' }
+  }
 
   const supabase = await createClient()
   const {
     data: { user },
   } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) return { error: '로그인이 풀렸어요. 다시 로그인해 주세요.' }
 
-  await supabase
+  const { error } = await supabase
     .from('products')
     .update({ status })
     .eq('id', id)
     .eq('seller_id', user.id)
 
+  if (error) return { error: `상태를 바꾸지 못했어요: ${error.message}` }
+
   revalidatePath('/products')
   revalidatePath(`/products/${id}`)
   revalidatePath('/')
+  revalidatePath('/mypage')
+  return {}
 }
 
 export async function deleteProductAction(formData: FormData) {
