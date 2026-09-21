@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { siteUrl } from '@/lib/env'
 import type { AuthState } from '@/lib/auth-types'
 import {
   translateAuthError,
@@ -15,11 +16,7 @@ import {
 /** 이메일 확인 링크가 돌아올 주소 */
 async function siteOrigin() {
   const h = await headers()
-  return (
-    h.get('origin') ??
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    'http://localhost:3000'
-  )
+  return h.get('origin') ?? siteUrl()
 }
 
 /** 안전한 내부 경로만 허용 (열린 리다이렉트 방지) */

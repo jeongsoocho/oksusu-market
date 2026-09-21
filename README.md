@@ -46,12 +46,20 @@ http://localhost:3000 에서 열립니다.
 ## 환경 변수 (`.env.local`)
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=https://edrzispsyektwgmueglb.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+SUPABASE_URL=https://edrzispsyektwgmueglb.supabase.co
+SUPABASE_ANON_KEY=sb_publishable_...
+SUPABASE_SITE_URL=http://localhost:3000
 ```
 
-`.env.local` 은 git에 올라가지 않습니다. 배포할 때 호스팅 서비스의 환경 변수에 같은 값을 넣어 주세요.
+`.env.local` 은 git에 올라가지 않습니다. 배포할 때 Vercel 의 Settings → Environment Variables 에 같은 이름·값을 넣고 **다시 배포(Redeploy)** 해야 반영됩니다.
+
+읽는 자리는 [src/lib/env.ts](src/lib/env.ts) 한 곳으로 모아 두었습니다.
+
+- 이름 앞에 `NEXT_PUBLIC_` 이 **없으면 서버에서만** 읽을 수 있습니다. 지금 화면은 전부 서버에서 데이터를 가져오기 때문에 문제없습니다.
+- 예전 `NEXT_PUBLIC_...` 이름도 그대로 받아 줍니다. 둘 중 아무거나 있으면 동작합니다.
+- `SUPABASE_SITE_URL` 을 안 넣으면 Vercel 이 자동으로 알려 주는 배포 주소를 씁니다.
+- 값이 비어 있으면 `환경 변수 SUPABASE_URL 이(가) 비어 있습니다` 라고 로그에 찍힙니다. (예전에는 원인을 알 수 없는 500 에러만 떴습니다)
+- 나중에 브라우저에서 Supabase 를 직접 부르게 되면(5단계 실시간 채팅 등) `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` 도 같이 넣어야 합니다.
 
 ## 데이터베이스
 
