@@ -13,6 +13,8 @@ import {
 import { deleteProductAction } from '@/app/products/actions'
 import { ConfirmSubmit } from '@/components/confirm-submit'
 import { StatusSwitcher } from '@/components/status-switcher'
+import { ProductGallery } from '@/components/product-gallery'
+import { productImageUrls } from '@/lib/storage'
 
 async function getProduct(idParam: string) {
   const id = Number(idParam)
@@ -63,14 +65,12 @@ export default async function ProductDetailPage({
         ← 목록으로
       </Link>
 
-      <div
-        className={`flex h-56 items-center justify-center rounded-3xl border-2 border-corn-200 bg-corn-100 text-8xl ${
-          product.status === 'sold' ? 'opacity-50 grayscale' : ''
-        }`}
-        aria-hidden
-      >
-        {category.emoji}
-      </div>
+      <ProductGallery
+        images={productImageUrls(product.images)}
+        emoji={category.emoji}
+        title={product.title}
+        dimmed={product.status === 'sold'}
+      />
 
       <div className="rounded-3xl border-2 border-corn-200 bg-white/80 p-6 shadow-sm">
         <div className="flex items-center gap-2">

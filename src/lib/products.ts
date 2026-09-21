@@ -47,6 +47,7 @@ export type Product = {
   description: string
   region: string
   status: string
+  images: string[]
   created_at: string
   updated_at: string
   profiles: { nickname: string; avatar_emoji: string } | null
@@ -54,7 +55,7 @@ export type Product = {
 
 /** 조인해서 읽을 컬럼 목록 */
 export const PRODUCT_SELECT =
-  'id, seller_id, title, price, category, description, region, status, created_at, updated_at, profiles(nickname, avatar_emoji)'
+  'id, seller_id, title, price, category, description, region, status, images, created_at, updated_at, profiles(nickname, avatar_emoji)'
 
 export function formatPrice(price: number) {
   return price === 0 ? '나눔 💝' : `${price.toLocaleString('ko-KR')}원`

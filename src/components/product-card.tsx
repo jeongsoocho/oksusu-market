@@ -1,10 +1,13 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { categoryOf, formatPrice, statusOf, timeAgo, type Product } from '@/lib/products'
+import { productImageUrl } from '@/lib/storage'
 
 export function ProductCard({ product }: { product: Product }) {
   const category = categoryOf(product.category)
   const status = statusOf(product.status)
   const sold = product.status === 'sold'
+  const cover = product.images?.[0]
 
   return (
     <Link
@@ -12,12 +15,29 @@ export function ProductCard({ product }: { product: Product }) {
       className="group flex gap-4 rounded-3xl border-2 border-corn-200 bg-white/80 p-4 transition hover:border-corn-400 hover:bg-corn-50"
     >
       <div
-        className={`flex size-20 shrink-0 items-center justify-center rounded-2xl border-2 border-corn-200 bg-corn-100 text-4xl transition group-hover:scale-105 ${
+        className={`relative size-20 shrink-0 overflow-hidden rounded-2xl border-2 border-corn-200 bg-corn-100 transition group-hover:scale-105 ${
           sold ? 'opacity-50 grayscale' : ''
         }`}
-        aria-hidden
       >
-        {category.emoji}
+        {cover ? (
+          <Image
+            src={productImageUrl(cover)}
+            alt=""
+            fill
+            sizes="80px"
+            className="object-cover"
+          />
+        ) : (
+          <span className="flex size-full items-center justify-center text-4xl" aria-hidden>
+            {category.emoji}
+          </span>
+        )}
+
+        {product.images?.length > 1 ? (
+          <span className="absolute bottom-0 right-0 rounded-tl-lg bg-cob-900/70 px-1.5 text-[10px] font-bold text-white">
+            {product.images.length}
+          </span>
+        ) : null}
       </div>
 
       <div className="min-w-0 flex-1">

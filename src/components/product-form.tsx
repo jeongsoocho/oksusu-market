@@ -6,11 +6,19 @@ import { createProductAction, updateProductAction } from '@/app/products/actions
 import { initialProductFormState } from '@/lib/product-form-state'
 import { CATEGORIES, type Product } from '@/lib/products'
 import { Alert, SubmitButton } from '@/components/ui'
+import { ImagePicker, type ExistingImage } from '@/components/image-picker'
 
 const inputClass =
   'w-full rounded-2xl border-2 border-corn-200 bg-white/90 px-4 py-3 text-cob-900 outline-none transition placeholder:text-cob-500/50 focus:border-corn-400 focus:ring-4 focus:ring-corn-200/60'
 
-export function ProductForm({ product }: { product?: Product }) {
+export function ProductForm({
+  product,
+  existingImages = [],
+}: {
+  product?: Product
+  /** 수정 화면에서 이미 올라가 있는 사진 (서버에서 주소를 완성해 내려줍니다) */
+  existingImages?: ExistingImage[]
+}) {
   const isEdit = Boolean(product)
   const [state, formAction] = useActionState(
     isEdit ? updateProductAction : createProductAction,
@@ -30,6 +38,8 @@ export function ProductForm({ product }: { product?: Product }) {
     <form action={formAction} className="space-y-5">
       {product ? <input type="hidden" name="id" value={product.id} /> : null}
       {state.error ? <Alert tone="error">{state.error}</Alert> : null}
+
+      <ImagePicker existing={existingImages} />
 
       <label className="block">
         <span className="mb-1.5 block text-sm font-semibold text-cob-700">제목</span>

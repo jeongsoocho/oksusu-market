@@ -8,7 +8,7 @@ import { PRODUCT_SELECT, type Product } from '@/lib/products'
 const ROADMAP = [
   { emoji: '🌽', title: '1단계 · 회원', desc: '가입 · 로그인 · 로그아웃', done: true },
   { emoji: '📦', title: '2단계 · 거래 글', desc: '쓰기 · 보기 · 수정 · 삭제', done: true },
-  { emoji: '📸', title: '3단계 · 사진', desc: '상품 사진 올리기', done: false },
+  { emoji: '📸', title: '3단계 · 사진', desc: '한 글에 최대 5장', done: true },
   { emoji: '💬', title: '4단계 · 채팅', desc: '판매자와 이야기하기', done: false },
 ]
 

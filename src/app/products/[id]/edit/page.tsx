@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { PRODUCT_SELECT, type Product } from '@/lib/products'
+import { productImageUrl } from '@/lib/storage'
 import { ProductForm } from '@/components/product-form'
 
 export const metadata: Metadata = { title: '글 수정 · 옥수수마켓 🌽' }
@@ -39,7 +40,13 @@ export default async function EditProductPage({
       <p className="mt-1 text-sm text-cob-700">고치고 싶은 내용을 바꿔 주세요</p>
 
       <div className="mt-6 rounded-3xl border-2 border-corn-200 bg-white/80 p-6 shadow-sm">
-        <ProductForm product={product} />
+        <ProductForm
+          product={product}
+          existingImages={(product.images ?? []).map((path) => ({
+            path,
+            url: productImageUrl(path),
+          }))}
+        />
       </div>
     </div>
   )
