@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  /* 🌽 옥수수 알맹이 */
+  --color-corn-50: #fffbeb;
+  --color-corn-100: #fff4c9;
+  --color-corn-200: #ffe89a;
+  --color-corn-300: #ffdb66;
+  --color-corn-400: #ffcb3c;
+  --color-corn-500: #fdb515;
+  --color-corn-600: #e09a00;
+  --color-corn-700: #b87a00;
+
+  /* 🌿 옥수수 껍질 */
+  --color-husk-100: #eaf6e2;
+  --color-husk-300: #a8d98b;
+  --color-husk-500: #5ba83f;
+  --color-husk-600: #46882f;
+  --color-husk-700: #35691f;
+
+  /* 🤎 자루 */
+  --color-cob-500: #b98a5a;
+  --color-cob-700: #7c5330;
+  --color-cob-900: #4a3018;
+
+  --font-display: var(--font-jua), "Malgun Gothic", sans-serif;
+}
+
+:root {
+  --background: var(--color-corn-50);
+  --foreground: var(--color-cob-900);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 219, 102, 0.45) 0, transparent 34%),
+    radial-gradient(circle at 88% 8%, rgba(168, 217, 139, 0.35) 0, transparent 30%),
+    radial-gradient(circle at 76% 92%, rgba(255, 203, 60, 0.32) 0, transparent 32%);
+  background-attachment: fixed;
+  min-height: 100dvh;
+}
+
+/* 마스코트가 살짝 흔들흔들 */
+@keyframes corn-wiggle {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50%      { transform: rotate(3deg) translateY(-6px); }
+}
+
+.animate-wiggle {
+  animation: corn-wiggle 3.2s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-wiggle,
+  .animate-pop-in {
+    animation: none;
+  }
+}
