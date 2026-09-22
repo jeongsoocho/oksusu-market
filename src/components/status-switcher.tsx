@@ -43,10 +43,10 @@ export function StatusSwitcher({
               type="button"
               aria-pressed={selected}
               onClick={() => change(s.value)}
-              className={`rounded-full border-2 px-3.5 py-1.5 text-sm font-bold transition ${
+              className={`rounded-full border px-3.5 py-1.5 text-sm font-bold transition ${
                 selected
-                  ? 'border-husk-600 bg-husk-500 text-white'
-                  : 'border-husk-300 bg-white/80 text-husk-700 hover:bg-white active:scale-95'
+                  ? 'border-accent-strong bg-accent text-white'
+                  : 'border-accent/40 bg-surface text-accent-strong hover:bg-surface-soft active:scale-95'
               }`}
             >
               {s.label}
@@ -56,7 +56,7 @@ export function StatusSwitcher({
 
         <span
           aria-live="polite"
-          className={`text-xs font-bold text-husk-600 transition-opacity ${
+          className={`text-xs font-bold text-accent-strong transition-opacity ${
             isPending ? 'opacity-100' : 'opacity-0'
           }`}
         >
@@ -64,7 +64,7 @@ export function StatusSwitcher({
         </span>
       </div>
 
-      {error ? <p className="mt-2 text-xs font-bold text-red-600">⚠️ {error}</p> : null}
+      {error ? <p className="mt-2 text-xs font-bold text-danger">⚠️ {error}</p> : null}
     </div>
   )
 }

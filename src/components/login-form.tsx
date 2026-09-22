@@ -33,9 +33,9 @@ export function LoginForm({ next = '/' }: { next?: string }) {
 
       <SubmitButton>로그인</SubmitButton>
 
-      <p className="pt-2 text-center text-sm text-cob-700">
+      <p className="pt-2 text-center text-sm text-ink-soft">
         아직 옥수수밭에 안 들어왔나요?{' '}
-        <Link href="/signup" className="font-bold text-husk-600 underline decoration-husk-300 decoration-2 underline-offset-4">
+        <Link href="/signup" className="font-bold text-accent-strong underline decoration-accent/50 decoration-2 underline-offset-4">
           회원가입
         </Link>
       </p>

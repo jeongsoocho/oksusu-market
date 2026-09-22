@@ -1,9 +1,10 @@
+import { card, pageTitle } from '@/lib/styles'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { ProductForm } from '@/components/product-form'
 
-export const metadata: Metadata = { title: '글 쓰기 · 옥수수마켓 🌽' }
+export const metadata: Metadata = { title: '글 쓰기' }
 
 export default async function NewProductPage() {
   const supabase = await createClient()
@@ -16,10 +17,10 @@ export default async function NewProductPage() {
 
   return (
     <div className="animate-pop-in mx-auto max-w-xl">
-      <h1 className="font-display text-3xl text-cob-900">✏️ 거래 글 쓰기</h1>
-      <p className="mt-1 text-sm text-cob-700">쓰지 않는 물건에 새 주인을 찾아 주세요 🌽</p>
+      <h1 className={pageTitle}>✏️ 거래 글 쓰기</h1>
+      <p className="mt-1 text-sm text-ink-soft">쓰지 않는 물건에 새 주인을 찾아 주세요 🌽</p>
 
-      <div className="mt-6 rounded-3xl border-2 border-corn-200 bg-white/80 p-6 shadow-sm">
+      <div className={`${card} mt-6 p-6`}>
         <ProductForm />
       </div>
     </div>

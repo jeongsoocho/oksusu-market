@@ -1,6 +1,7 @@
 'use client'
 
 import { useFormStatus } from 'react-dom'
+import { btnPrimary, hint as hintClass, input, label as labelClass } from '@/lib/styles'
 
 type FieldProps = {
   label: string
@@ -11,6 +12,7 @@ type FieldProps = {
   autoComplete?: string
   hint?: string
   required?: boolean
+  maxLength?: number
 }
 
 export function Field({
@@ -22,10 +24,11 @@ export function Field({
   autoComplete,
   hint,
   required = true,
+  maxLength,
 }: FieldProps) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-semibold text-cob-700">{label}</span>
+      <span className={labelClass}>{label}</span>
       <input
         name={name}
         type={type}
@@ -33,33 +36,46 @@ export function Field({
         defaultValue={defaultValue}
         autoComplete={autoComplete}
         required={required}
-        className="w-full rounded-2xl border-2 border-corn-200 bg-white/90 px-4 py-3 text-cob-900 outline-none transition placeholder:text-cob-500/50 focus:border-corn-400 focus:ring-4 focus:ring-corn-200/60"
+        maxLength={maxLength}
+        className={input}
       />
-      {hint ? <span className="mt-1.5 block text-xs text-cob-500">{hint}</span> : null}
+      {hint ? <span className={hintClass}>{hint}</span> : null}
     </label>
   )
 }
 
-export function SubmitButton({ children }: { children: React.ReactNode }) {
+export function SubmitButton({
+  children,
+  pendingLabel = '잠시만요… 🌽',
+}: {
+  children: React.ReactNode
+  pendingLabel?: string
+}) {
   const { pending } = useFormStatus()
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-2xl bg-corn-400 px-4 py-3.5 text-lg font-bold text-cob-900 shadow-[0_4px_0_0_var(--color-corn-600)] transition active:translate-y-[3px] active:shadow-[0_1px_0_0_var(--color-corn-600)] disabled:cursor-not-allowed disabled:opacity-60 disabled:active:translate-y-0"
-    >
-      {pending ? '잠시만요… 🌽' : children}
+    <button type="submit" disabled={pending} className={`${btnPrimary} w-full text-lg`}>
+      {pending ? pendingLabel : children}
     </button>
   )
 }
 
-export function Alert({ tone, children }: { tone: 'error' | 'notice'; children: React.ReactNode }) {
+export function Alert({
+  tone,
+  children,
+}: {
+  tone: 'error' | 'notice'
+  children: React.ReactNode
+}) {
   const styles =
     tone === 'error'
-      ? 'border-red-200 bg-red-50 text-red-700'
-      : 'border-husk-300 bg-husk-100 text-husk-700'
+      ? 'border-danger/40 bg-danger-soft text-danger'
+      : 'border-accent/40 bg-accent-soft text-accent-strong'
+
   return (
-    <p role="status" className={`animate-pop-in rounded-2xl border-2 px-4 py-3 text-sm font-medium ${styles}`}>
+    <p
+      role="status"
+      className={`animate-pop-in rounded-2xl border px-4 py-3 text-sm font-medium ${styles}`}
+    >
       {tone === 'error' ? '⚠️ ' : '💌 '}
       {children}
     </p>

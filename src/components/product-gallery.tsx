@@ -23,7 +23,7 @@ export function ProductGallery({
   if (images.length === 0) {
     return (
       <div
-        className={`flex h-56 items-center justify-center rounded-3xl border-2 border-corn-200 bg-corn-100 text-8xl ${
+        className={`flex h-56 items-center justify-center rounded-3xl border border-line bg-surface-soft text-8xl ${
           dimmed ? 'opacity-50 grayscale' : ''
         }`}
         aria-hidden
@@ -38,7 +38,7 @@ export function ProductGallery({
   return (
     <div>
       <div
-        className={`relative aspect-[4/3] overflow-hidden rounded-3xl border-2 border-corn-200 bg-corn-100 ${
+        className={`relative aspect-[4/3] overflow-hidden rounded-3xl border border-line bg-surface-soft ${
           dimmed ? 'opacity-50 grayscale' : ''
         }`}
       >
@@ -63,8 +63,8 @@ export function ProductGallery({
               aria-current={index === safeIndex}
               className={`relative size-16 overflow-hidden rounded-xl border-2 transition ${
                 index === safeIndex
-                  ? 'border-corn-600 ring-2 ring-corn-300'
-                  : 'border-corn-200 opacity-70 hover:opacity-100'
+                  ? 'border-brand-strong ring-2 ring-brand/40'
+                  : 'border-line opacity-70 hover:opacity-100'
               }`}
             >
               <Image src={src} alt="" fill sizes="64px" className="object-cover" />

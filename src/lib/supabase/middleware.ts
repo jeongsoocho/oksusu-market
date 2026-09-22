@@ -5,6 +5,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 /** 로그인해야만 볼 수 있는 경로 */
 const PROTECTED = [
   /^\/mypage/,
+  /^\/favorites/,
+  /^\/chat/,
   /^\/products\/new/,
   /^\/products\/[^/]+\/edit/,
 ]

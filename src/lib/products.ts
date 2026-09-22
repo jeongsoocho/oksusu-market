@@ -48,14 +48,22 @@ export type Product = {
   region: string
   status: string
   images: string[]
+  favorite_count: number
+  view_count: number
   created_at: string
   updated_at: string
   profiles: { nickname: string; avatar_emoji: string } | null
 }
 
-/** 조인해서 읽을 컬럼 목록 */
+/**
+ * 조인해서 읽을 컬럼 목록.
+ *
+ * 판매자 정보를 가져올 때 관계 이름(products_seller_id_fkey)을 콕 집어 주는 이유:
+ * favorites 테이블이 생기면서 products 와 profiles 를 잇는 길이 두 개가 되었습니다.
+ * (파는 사람 / 찜한 사람) 그냥 profiles 라고만 쓰면 PostgREST 가 어느 쪽인지 몰라 오류를 냅니다.
+ */
 export const PRODUCT_SELECT =
-  'id, seller_id, title, price, category, description, region, status, images, created_at, updated_at, profiles(nickname, avatar_emoji)'
+  'id, seller_id, title, price, category, description, region, status, images, favorite_count, view_count, created_at, updated_at, profiles!products_seller_id_fkey(nickname, avatar_emoji)'
 
 export function formatPrice(price: number) {
   return price === 0 ? '나눔 💝' : `${price.toLocaleString('ko-KR')}원`

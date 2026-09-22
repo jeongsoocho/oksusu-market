@@ -48,9 +48,9 @@ export function SignupForm() {
 
       <SubmitButton>가입하고 옥수수 받기</SubmitButton>
 
-      <p className="pt-2 text-center text-sm text-cob-700">
+      <p className="pt-2 text-center text-sm text-ink-soft">
         이미 알맹이인가요?{' '}
-        <Link href="/login" className="font-bold text-husk-600 underline decoration-husk-300 decoration-2 underline-offset-4">
+        <Link href="/login" className="font-bold text-accent-strong underline decoration-accent/50 decoration-2 underline-offset-4">
           로그인
         </Link>
       </p>

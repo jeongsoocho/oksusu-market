@@ -85,8 +85,8 @@ export function ImagePicker({ existing = [] }: { existing?: ExistingImage[] }) {
 
   return (
     <div>
-      <span className="mb-1.5 block text-sm font-semibold text-cob-700">
-        사진 <span className="font-normal text-cob-500">({total}/{MAX_IMAGES})</span>
+      <span className="mb-1.5 block text-sm font-semibold text-ink-soft">
+        사진 <span className="font-normal text-ink-faint">({total}/{MAX_IMAGES})</span>
       </span>
 
       {/* 남겨 둘 기존 사진의 경로를 서버로 함께 보냅니다 */}
@@ -117,7 +117,7 @@ export function ImagePicker({ existing = [] }: { existing?: ExistingImage[] }) {
 
         {room > 0 ? (
           <label
-            className={`flex size-24 cursor-pointer flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-corn-300 bg-white/70 text-cob-700 transition hover:bg-corn-100 ${
+            className={`flex size-24 cursor-pointer flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-line bg-surface text-ink-soft transition hover:bg-surface-soft ${
               busy ? 'pointer-events-none opacity-60' : ''
             }`}
           >
@@ -137,10 +137,10 @@ export function ImagePicker({ existing = [] }: { existing?: ExistingImage[] }) {
         ) : null}
       </div>
 
-      <p className="mt-1.5 text-xs text-cob-500">
+      <p className="mt-1.5 text-xs text-ink-faint">
         JPG · PNG · WEBP · 최대 {MAX_IMAGES}장 · 첫 번째 사진이 목록에 보여요
       </p>
-      {notice ? <p className="mt-1 text-xs font-bold text-husk-600">{notice}</p> : null}
+      {notice ? <p className="mt-1 text-xs font-bold text-accent-strong">{notice}</p> : null}
     </div>
   )
 }
@@ -155,12 +155,12 @@ function Thumb({
   onRemove: () => void
 }) {
   return (
-    <div className="relative size-24 overflow-hidden rounded-2xl border-2 border-corn-200 bg-corn-100">
+    <div className="relative size-24 overflow-hidden rounded-2xl border border-line bg-surface-soft">
       {/* 미리보기라 next/image 대신 기본 img 를 씁니다 (blob: 주소도 써야 해서) */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt="" className="size-full object-cover" />
       {badge ? (
-        <span className="absolute bottom-0 left-0 rounded-tr-lg bg-husk-500 px-1.5 py-0.5 text-[10px] font-bold text-white">
+        <span className="absolute bottom-0 left-0 rounded-tr-lg bg-accent px-1.5 py-0.5 text-[10px] font-bold text-white">
           {badge}
         </span>
       ) : null}
@@ -168,7 +168,7 @@ function Thumb({
         type="button"
         onClick={onRemove}
         aria-label="이 사진 빼기"
-        className="absolute right-1 top-1 flex size-6 items-center justify-center rounded-full bg-cob-900/70 text-sm font-bold text-white transition hover:bg-cob-900"
+        className="absolute right-1 top-1 flex size-6 items-center justify-center rounded-full bg-black/60 text-sm font-bold text-white transition hover:bg-black/80"
       >
         ✕
       </button>

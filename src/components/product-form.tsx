@@ -9,7 +9,7 @@ import { Alert, SubmitButton } from '@/components/ui'
 import { ImagePicker, type ExistingImage } from '@/components/image-picker'
 
 const inputClass =
-  'w-full rounded-2xl border-2 border-corn-200 bg-white/90 px-4 py-3 text-cob-900 outline-none transition placeholder:text-cob-500/50 focus:border-corn-400 focus:ring-4 focus:ring-corn-200/60'
+  'w-full rounded-2xl border border-line bg-surface px-4 py-3 text-ink outline-none transition placeholder:text-ink-faint focus:border-brand focus:ring-4 focus:ring-brand/25'
 
 export function ProductForm({
   product,
@@ -42,7 +42,7 @@ export function ProductForm({
       <ImagePicker existing={existingImages} />
 
       <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold text-cob-700">제목</span>
+        <span className="mb-1.5 block text-sm font-semibold text-ink-soft">제목</span>
         <input
           name="title"
           required
@@ -54,7 +54,7 @@ export function ProductForm({
       </label>
 
       <fieldset>
-        <legend className="mb-2 text-sm font-semibold text-cob-700">카테고리</legend>
+        <legend className="mb-2 text-sm font-semibold text-ink-soft">카테고리</legend>
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map((c) => (
             <label key={c.value} className="cursor-pointer">
@@ -66,7 +66,7 @@ export function ProductForm({
                 defaultChecked={(v?.category ?? product?.category) === c.value}
                 className="peer sr-only"
               />
-              <span className="block rounded-full border-2 border-corn-200 bg-white/80 px-3.5 py-1.5 text-sm font-semibold text-cob-700 transition peer-checked:border-corn-600 peer-checked:bg-corn-300 peer-checked:text-cob-900 peer-focus-visible:ring-4 peer-focus-visible:ring-corn-200">
+              <span className="block rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-semibold text-ink-soft transition peer-checked:border-brand-strong peer-checked:bg-brand-soft peer-checked:text-ink peer-focus-visible:ring-4 peer-focus-visible:ring-brand/30">
                 {c.emoji} {c.label}
               </span>
             </label>
@@ -76,7 +76,7 @@ export function ProductForm({
 
       <div>
         <label className="block">
-          <span className="mb-1.5 block text-sm font-semibold text-cob-700">가격</span>
+          <span className="mb-1.5 block text-sm font-semibold text-ink-soft">가격</span>
           <div className="relative">
             <input
               name="price"
@@ -87,7 +87,7 @@ export function ProductForm({
               onChange={(e) => setPrice(e.target.value.replace(/[^\d]/g, '').slice(0, 10))}
               className={`${inputClass} pr-12`}
             />
-            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-semibold text-cob-500">
+            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-semibold text-ink-faint">
               원
             </span>
           </div>
@@ -96,7 +96,7 @@ export function ProductForm({
           <button
             type="button"
             onClick={() => setPrice('0')}
-            className="rounded-full border-2 border-husk-300 bg-husk-100 px-3 py-1 text-xs font-bold text-husk-700 transition hover:bg-husk-300/40"
+            className="rounded-full border border-accent/40 bg-accent-soft px-3 py-1 text-xs font-bold text-accent-strong transition hover:bg-accent-soft"
           >
             💝 나눔 (0원)
           </button>
@@ -105,7 +105,7 @@ export function ProductForm({
               key={won}
               type="button"
               onClick={() => addPrice(won)}
-              className="rounded-full border-2 border-corn-200 bg-white/80 px-3 py-1 text-xs font-bold text-cob-700 transition hover:bg-corn-100"
+              className="rounded-full border border-line bg-surface px-3 py-1 text-xs font-bold text-ink-soft transition hover:bg-surface-soft"
             >
               +{won.toLocaleString('ko-KR')}
             </button>
@@ -113,7 +113,7 @@ export function ProductForm({
           <button
             type="button"
             onClick={() => setPrice('')}
-            className="rounded-full px-3 py-1 text-xs font-bold text-cob-500 transition hover:bg-corn-100"
+            className="rounded-full px-3 py-1 text-xs font-bold text-ink-faint transition hover:bg-surface-soft"
           >
             지우기
           </button>
@@ -121,7 +121,7 @@ export function ProductForm({
       </div>
 
       <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold text-cob-700">거래 지역</span>
+        <span className="mb-1.5 block text-sm font-semibold text-ink-soft">거래 지역</span>
         <input
           name="region"
           required
@@ -133,7 +133,7 @@ export function ProductForm({
       </label>
 
       <label className="block">
-        <span className="mb-1.5 block text-sm font-semibold text-cob-700">설명</span>
+        <span className="mb-1.5 block text-sm font-semibold text-ink-soft">설명</span>
         <textarea
           name="description"
           rows={7}
@@ -147,7 +147,7 @@ export function ProductForm({
       <div className="flex gap-3 pt-1">
         <Link
           href={product ? `/products/${product.id}` : '/products'}
-          className="rounded-2xl border-2 border-corn-300 bg-white/80 px-5 py-3.5 font-bold whitespace-nowrap text-cob-700 transition hover:bg-corn-100"
+          className="rounded-2xl border border-line bg-surface px-5 py-3.5 font-bold whitespace-nowrap text-ink-soft transition hover:bg-surface-soft"
         >
           취소
         </Link>
